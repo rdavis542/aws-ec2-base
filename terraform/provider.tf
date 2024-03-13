@@ -7,9 +7,9 @@ terraform {
     }
   }
   backend "s3" {
-    bucket = "tfstategit"
-    key    = "ec2-base-terraform.tfstate"
-    region = "us-east-1"
+    bucket  = "tfstategit"
+    key     = "ec2-base-terraform.tfstate"
+    region  = "us-east-1"
     encrypt = true
   }
 }

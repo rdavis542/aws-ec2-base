@@ -67,8 +67,3 @@ data "aws_ami" "amazon_linux" {
   }
 
 }
-
-data "template_file" "ec2_base" {
-    template = file("${path.module}/script.sh")
-  
-}

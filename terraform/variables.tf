@@ -3,12 +3,6 @@ variable "region" {
   description = "region you want to use"
 }
 
-variable "vpc_id" {
-  type = string
-  description = "VPC ID in EAST"
-  
-}
-
 variable "subnet_private_a" {
 
   type        = string
@@ -17,6 +11,13 @@ variable "subnet_private_a" {
 }
 
 variable "subnet_private_b" {
+
+  type        = string
+  description = "subnets to support the vpc"
+
+}
+
+variable "subnet_private_c" {
 
   type        = string
   description = "subnets to support the vpc"
@@ -37,6 +38,13 @@ variable "subnet_public_b" {
 
 }
 
+variable "subnet_public_c" {
+
+  type        = string
+  description = "subnets to support the vpc"
+
+}
+
 variable "cidr_block" {
 
   type        = string
@@ -44,29 +52,48 @@ variable "cidr_block" {
 
 }
 
-variable "az1" {
+variable "azA" {
 
   type        = string
   description = "Avail zone assigned"
 
 }
 
-variable "az2" {
+variable "azB" {
 
   type        = string
   description = "Avail zone assigned"
 
 }
 
+
+variable "azC" {
+
+  type        = string
+  description = "Avail zone assigned"
+
+}
+
+
+variable "default_tags" {
+  description = "Default tags too apply to all resources"
+  default = {
+    "Environment"    = "Development"
+    "Infrastructure" = "VPC"
+    "REPO"           = "aws-ec2-base"
+  }
+
+}
 variable "volume_size" {
 
-  type = string
-  default = "10"
-  
+  type    = string
+  default = "20"
+
 }
 
 variable "instance_type" {
 
-  type = string
+  type    = string
   default = "t2.micro"
 }
+
