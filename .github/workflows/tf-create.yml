@@ -42,7 +42,7 @@ jobs:
       run: terraform validate -no-color
 
     - name: TF Plan
-      run: terraform plan --var-file=./terraform-vpc.tfvars -no-color -out tf.plan
+      run: terraform plan -no-color -out tf.plan
 
   tf-ec2-apply:
         name:  "Terraform EC2 Apply"
@@ -77,4 +77,4 @@ jobs:
           run: terraform validate -no-color
     
         - name: TF Apply
-          run: terraform apply -auto-approve --var-file=./terraform-vpc.tfvars
+          run: terraform apply -auto-approve
