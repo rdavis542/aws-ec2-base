@@ -35,4 +35,4 @@ jobs:
       run: terraform init
 
     - name: VPC Destroy
-      run: terraform destroy -auto-approve --var-file=./terraform-vpc.tfvars
+      run: terraform destroy -auto-approve --var-file=./terraform-ec2.tfvars
