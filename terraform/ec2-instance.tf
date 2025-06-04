@@ -5,6 +5,7 @@ resource "aws_instance" "from_template" {
   }
 
   tags = merge(var.default_tags, { Name = "ec2-base" })
+  depends_on = [ aws_key_pair.ec2_key_pair ]
 }
 
 resource "aws_key_pair" "ec2_key_pair" {
