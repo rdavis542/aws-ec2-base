@@ -1,4 +1,4 @@
-name: "aws-vpc-build"
+name: "aws-ec2-build"
 
 on:
   #push:
@@ -10,8 +10,8 @@ env:
   AWS_REGION: us-east-1   
 
 jobs:
-  tf-vpc-plan:
-    name:  "Terraform VPC Plan"
+  tf-ec2-plan:
+    name:  "Terraform EC2 Plan"
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -23,7 +23,7 @@ jobs:
       uses: actions/checkout@v3
     
     - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v2
+      uses: aws-actions/configure-aws-credentials@v3
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -44,9 +44,9 @@ jobs:
     - name: TF Plan
       run: terraform plan --var-file=./terraform-vpc.tfvars -no-color -out tf.plan
 
-  tf-vpc-apply:
-        name:  "Terraform VPC Apply"
-        needs: tf-vpc-plan
+  tf-ec2-apply:
+        name:  "Terraform EC2 Apply"
+        needs: tf-ec2-plan
         runs-on: ubuntu-latest
         defaults:
           run:

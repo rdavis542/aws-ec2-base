@@ -1,4 +1,4 @@
-name: 'aws-vpc-destroy'
+name: 'aws-ec2-destroy'
 
 on:
 #  push:
@@ -9,8 +9,8 @@ env:
   AWS_REGION: us-east-1   
 
 jobs:
-  tf-vpc-destrpu:
-    name:  "Terraform VPC Destroy"
+  tf-ec2-destroy:
+    name:  "Terraform ec2 Destroy"
     runs-on: ubuntu-latest
     defaults:
       run:
