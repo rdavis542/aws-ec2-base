@@ -56,6 +56,7 @@ variable "azA" {
 
   type        = string
   description = "Avail zone assigned"
+  default = "us-east-1a"
 
 }
 
@@ -63,6 +64,7 @@ variable "azB" {
 
   type        = string
   description = "Avail zone assigned"
+  default = "us-east-1b"
 
 }
 
@@ -71,6 +73,7 @@ variable "azC" {
 
   type        = string
   description = "Avail zone assigned"
+  default = "us-east-1c"
 
 }
 
