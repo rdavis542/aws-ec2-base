@@ -10,7 +10,7 @@ resource "aws_instance" "from_template" {
 
 resource "aws_key_pair" "ec2_key_pair" {
   key_name    = "ec2-key-pair" # Choose a descriptive name
-  public_key  = ""          # The public key will be generated automatically
+  public_key  = file("~/.ssh/my-key.pub")
   tags = {
     Name = "My App Key Pair"
   }
