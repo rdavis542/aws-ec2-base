@@ -5,7 +5,6 @@ resource "aws_instance" "from_template" {
   }
 
   tags = merge(var.default_tags, { Name = "ec2-base" })
-  depends_on = [ aws_key_pair.ec2_key_pair ]
 }
 
 
@@ -13,7 +12,7 @@ resource "aws_instance" "ssm_instance" {
   ami                    = data.aws_ami.amazon_linux.id
   instance_type          = var.instance_type
   iam_instance_profile   = aws_iam_instance_profile.ec2_instance_profile.name
-  vpc_security_group_ids = [aws_security_group.ec2_sg.id]
+  vpc_security_group_ids = [data.aws_security_group.http.id]
   subnet_id              = data.aws_subnet.private-subnet-a.id
   user_data              = local.user_data
 
