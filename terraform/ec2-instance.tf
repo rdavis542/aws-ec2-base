@@ -12,7 +12,7 @@ resource "aws_instance" "ssm_instance" {
   ami                    = data.aws_ami.amazon_linux.id
   instance_type          = var.instance_type
   iam_instance_profile   = aws_iam_instance_profile.ec2_instance_profile.name
-  vpc_security_group_ids = [data.aws_security_group.http.id]
+  vpc_security_group_ids = [data.aws_security_group.https_private.id]
   subnet_id              = data.aws_subnet.private-subnet-a.id
   user_data              = local.user_data
 

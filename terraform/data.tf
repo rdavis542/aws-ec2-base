@@ -40,12 +40,20 @@ data "aws_security_group" "ssh" {
   }
 }
 
-data "aws_security_group" "http" {
+data "aws_security_group" "https" {
   filter {
     name   = "tag:Name"
-    values = ["http_access"]
+    values = ["https_access"]
   }
 }
+
+data "aws_security_group" "https_private" {
+  filter {
+    name   = "tag:Name"
+    values = ["https_access Private*"]
+  }
+}
+
 
 data "aws_ami" "amazon_linux" {
   most_recent = true
