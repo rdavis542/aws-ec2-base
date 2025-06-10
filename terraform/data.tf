@@ -50,7 +50,7 @@ data "aws_security_group" "https" {
 data "aws_security_group" "https_private" {
   filter {
     name   = "tag:Name"
-    values = ["https_access Private*"]
+    values = ["https_access private subnet"]
   }
 }
 
