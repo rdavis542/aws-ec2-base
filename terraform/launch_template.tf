@@ -4,7 +4,7 @@ resource "aws_launch_template" "launch_template" {
   image_id               = data.aws_ami.amazon_linux.id
   instance_type          = var.instance_type
   vpc_security_group_ids = [data.aws_security_group.ssh.id]
-  user_data              = filebase64("${path.module}/script.sh")
+  #user_data              = filebase64("${path.module}/script.sh")
   key_name               = aws_key_pair.ec2_key_pair.key_name
 
   block_device_mappings {
