@@ -1,3 +1,18 @@
+# data.tf - AWS Infrastructure Data Sources
+# This file contains data sources to retrieve consistent AWS infrastructure information
+# across Terraform projects
+
+# Get current AWS region
+data "aws_region" "current" {}
+
+# Get current AWS caller identity (account info)
+data "aws_caller_identity" "current" {}
+
+# Get all available availability zones in the current region
+data "aws_availability_zones" "available" {
+  state = "available"
+}
+
 data "aws_vpc" "selected" {
   filter {
     name   = "tag:Name"
@@ -32,28 +47,6 @@ data "aws_subnet" "private-subnet-b" {
     values = ["private-subnet-b"]
   }
 }
-
-data "aws_security_group" "ssh" {
-  filter {
-    name   = "tag:Name"
-    values = ["ssh_access"]
-  }
-}
-
-data "aws_security_group" "https" {
-  filter {
-    name   = "tag:Name"
-    values = ["https_access"]
-  }
-}
-
-data "aws_security_group" "https_private" {
-  filter {
-    name   = "tag:Name"
-    values = ["https_access private subnet"]
-  }
-}
-
 
 data "aws_ami" "amazon_linux" {
   most_recent = true

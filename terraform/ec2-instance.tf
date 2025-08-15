@@ -4,7 +4,7 @@ resource "aws_instance" "from_template" {
     version = "$Latest"
   }
 
-  tags = merge(var.default_tags, { Name = "ec2-base" })
+  tags = merge(var.default_tags, local.common_tags)
 }
 
 
@@ -26,6 +26,6 @@ resource "aws_instance" "ssm_instance" {
     encrypted   = true
   }
 
-  tags = merge(var.default_tags, { Name = "ec2-ssm-instance" })
+  tags = merge(var.default_tags, local.common_tags)
 }
 
