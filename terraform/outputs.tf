@@ -1,7 +1,10 @@
+output "ami_id" {
+  description = "EC2 Base AMI used to launch instances"
+  value       = data.aws_ami.ec2_base.id
+}
+
 output "image_name" {
-
-  value = data.aws_ami.amazon_linux.name
-
+  value = data.aws_ami.ec2_base.name
 }
 
 # Outputs

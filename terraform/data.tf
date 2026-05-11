@@ -48,23 +48,17 @@ data "aws_subnet" "private-subnet-b" {
   }
 }
 
-data "aws_ami" "amazon_linux" {
+data "aws_ami" "ec2_base" {
   most_recent = true
-  owners      = ["amazon"]
+  owners      = ["self"]
 
   filter {
-    name   = "name"
-    values = ["amzn2-ami-hvm-*-gp2"]
+    name   = "tag:Project"
+    values = ["aws-ec2-base"]
   }
 
   filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
+    name   = "state"
+    values = ["available"]
   }
-
-  filter {
-    name   = "architecture"
-    values = ["x86_64"]
-  }
-
 }

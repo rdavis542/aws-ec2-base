@@ -70,22 +70,13 @@ locals {
   }
 
   # AMI Information
-  amazon_linux_ami = {
-    id            = data.aws_ami.amazon_linux.id
-    name          = data.aws_ami.amazon_linux.name
-    description   = data.aws_ami.amazon_linux.description
-    creation_date = data.aws_ami.amazon_linux.creation_date
-    architecture  = data.aws_ami.amazon_linux.architecture
-    owner_id      = data.aws_ami.amazon_linux.owner_id
-  }
-
-  # Common tags for consistent resource tagging
-  common_tags = {
-    Environment   = terraform.workspace
-    Project       = "infrastructure"
-    ManagedBy     = "Terraform"
-    Region        = local.region
-    VPC           = local.vpc_name
+  ec2_base_ami = {
+    id            = data.aws_ami.ec2_base.id
+    name          = data.aws_ami.ec2_base.name
+    description   = data.aws_ami.ec2_base.description
+    creation_date = data.aws_ami.ec2_base.creation_date
+    architecture  = data.aws_ami.ec2_base.architecture
+    owner_id      = data.aws_ami.ec2_base.owner_id
   }
 
   # Environment-specific configurations
@@ -127,38 +118,4 @@ locals {
     private_subnet_count = length(local.private_subnet_ids)
   }
 
-  user_data = base64encode(<<-EOF
-    #!/bin/bash
-    yum update -y
-    
-    # Install SSM Agent (usually pre-installed on Amazon Linux 2)
-    yum install -y amazon-ssm-agent
-    systemctl enable amazon-ssm-agent
-    systemctl start amazon-ssm-agent
-    
-    # Install sample web server for port forwarding demo
-    yum install -y httpd
-    systemctl enable httpd
-    systemctl start httpd
-    
-    # Create a simple test page
-    echo "<h1>Hello from EC2 via SSM Port Forwarding!</h1>" > /var/www/html/index.html
-    echo "<p>Server: $(hostname)</p>" >> /var/www/html/index.html
-    echo "<p>Date: $(date)</p>" >> /var/www/html/index.html
-    
-    # Install MySQL for database port forwarding example
-    yum install -y mariadb-server
-    systemctl enable mariadb
-    systemctl start mariadb
-    
-    # Set up a test database
-    mysql -e "CREATE DATABASE testdb;"
-    mysql -e "CREATE USER 'testuser'@'localhost' IDENTIFIED BY 'testpass';"
-    mysql -e "GRANT ALL PRIVILEGES ON testdb.* TO 'testuser'@'localhost';"
-    mysql -e "FLUSH PRIVILEGES;"
-    
-    # Install some additional useful tools
-    yum install -y htop nano git
-    EOF
-  )
 }
