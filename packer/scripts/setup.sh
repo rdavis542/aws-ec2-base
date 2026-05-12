@@ -54,7 +54,8 @@ unzip -q /tmp/awscliv2.zip -d /tmp/
 /tmp/aws/install --update
 rm -rf /tmp/awscliv2.zip /tmp/aws
 
-# SSM Agent is pre-installed on AL2023; ensure it's enabled
+# SSM Agent — install to register the service unit, then enable
+dnf install -y amazon-ssm-agent
 systemctl enable amazon-ssm-agent
 systemctl start amazon-ssm-agent
 
