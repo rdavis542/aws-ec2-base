@@ -1,6 +1,5 @@
 #!/bin/bash
-set -euo pipefail
-exec > >(tee /var/log/ec2-base-setup.log | logger -t ec2-base-setup -s 2>/dev/console) 2>&1
+set -euxo pipefail
 
 echo "=== EC2 Base AMI Build Starting ==="
 echo "Base OS: $(grep PRETTY_NAME /etc/os-release | cut -d= -f2)"
