@@ -8,7 +8,7 @@ echo "Base OS: $(grep PRETTY_NAME /etc/os-release | cut -d= -f2)"
 dnf update -y
 
 # General tools
-dnf install -y htop nano git jq curl unzip
+dnf install -y htop nano git jq unzip
 
 # Web server for SSM port-forwarding demo
 dnf install -y httpd
