@@ -78,10 +78,6 @@ variable "azC" {
 }
 
 
-variable "default_tags" {
-  description = "Default tags too apply to all resources"
-  default = ""
-}
 variable "volume_size" {
 
   type    = string

@@ -16,7 +16,16 @@ terraform {
 
 
 provider "aws" {
-
   region = var.region
 
+  default_tags {
+    tags = {
+      Environment = "development"
+      Project     = "aws-ec2-base"
+      ManagedBy   = "Terraform"
+      Repository  = "aws-ec2-base"
+      Owner       = "ryan_davis542@outlook.com"
+      CostCenter  = "Personal"
+    }
+  }
 }
