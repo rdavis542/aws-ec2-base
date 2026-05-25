@@ -2,6 +2,11 @@ name: "aws-ec2-build"
 
 on:
   workflow_dispatch:
+    inputs:
+      plan_only:
+        description: 'Run plan only, skip apply'
+        type: boolean
+        default: false
 
 jobs:
   terraform:
@@ -13,4 +18,5 @@ jobs:
     with:
       aws_region: us-east-1
       var_file: terraform-ec2.tfvars
+      plan_only: ${{ github.event.inputs.plan_only == 'true' }}
     secrets: inherit
