@@ -16,53 +16,9 @@ on:
         required: true
         default: "public-subnet-a"
 
-env:
-  AWS_REGION: ${{ github.event.inputs.region }}
-  PACKER_LOG: 1
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-
-permissions:
-  id-token: write
-  contents: read
-
 jobs:
-  build-ami:
-    name: Packer Build
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Configure AWS credentials (OIDC)
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          role-to-assume: ${{ secrets.AWS_PACKER_ROLE_ARN }}
-          aws-region: ${{ env.AWS_REGION }}
-
-      - name: Setup Packer
-        uses: hashicorp/setup-packer@main
-        with:
-          version: "latest"
-
-      - name: Packer Init
-        working-directory: packer
-        run: packer init ec2-base.pkr.hcl
-
-      - name: Packer Validate
-        working-directory: packer
-        run: |
-          packer validate \
-            -var "region=${{ github.event.inputs.region }}" \
-            -var "vpc_name=${{ github.event.inputs.vpc_name }}" \
-            -var "build_subnet_name=${{ github.event.inputs.build_subnet_name }}" \
-            ec2-base.pkr.hcl
-
-      - name: Packer Build
-        working-directory: packer
-        run: |
-          packer build \
-            -var "region=${{ github.event.inputs.region }}" \
-            -var "vpc_name=${{ github.event.inputs.vpc_name }}" \
-            -var "build_subnet_name=${{ github.event.inputs.build_subnet_name }}" \
-            ec2-base.pkr.hcl
+  packer:
+    uses: rdavis542/aws-github-workflows/.github/workflows/packer-build.yml@main
+    with:
+      packer_file: ec2-base.pkr.hcl
+    secrets: inherit
